@@ -75,7 +75,6 @@ describe('Compra com mais de um produto', () => {
 
 })
 
-
 describe('Validar valor de todos os produtos no carrinho', () => {
     let totalItemsPrices = 0; 
     let tax = 0;
@@ -183,7 +182,7 @@ describe('Validar valor de todos os produtos no carrinho', () => {
                 let valor = parseFloat(valorText)
                 tax = valor;
             })
-        
+            
         cy.get('.summary_total_label').then((res) => {
             console.log(totalItemsPrices)
             console.log(tax)
@@ -191,7 +190,5 @@ describe('Validar valor de todos os produtos no carrinho', () => {
             console.log(totalPrice)
             cy.get('.summary_total_label').should('have.text', `Total: $${totalPrice}`)
         })
-    })
-
-    
+    })  
 })
