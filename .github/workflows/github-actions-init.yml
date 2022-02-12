@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Automação de execução de testes
 on: [pull_request]
 jobs:
  cypress-run:
