@@ -1,5 +1,5 @@
 name: Automação de execução de testes
-on: [pull_request]
+on: [push]
 jobs:
  cypress-run:
     runs-on: ubuntu-latest
