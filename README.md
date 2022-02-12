@@ -19,7 +19,7 @@ Realizando as seguinte validações:
 
 Os testes foram desenvolvidos em Cypress.
 
-A execução dos testes pode ser comandado diretamente no github ao realizar um pull request.
+A execução dos testes pode ser comandado diretamente no github ao realizar um pull request ou push.
 O arquivo que contém a configuração da pipeline está em .github\workflows\github-actionsinit.yml
 
 Para a execução manual dos testes, é necessário baixar o repositório, e seguir os passos abaixo:
