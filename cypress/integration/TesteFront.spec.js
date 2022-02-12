@@ -1,14 +1,14 @@
 /// <reference types="Cypress" />
+
+const url = 'https://saucedemo.com';
+const standartUser = 'standard_user';
 const blockedUser = 'locked_out_user';
 const password = 'secret_sauce';
 const blockedUserMessege = 'Epic sadface: Sorry, this user has been locked out.';
-const url = 'https://saucedemo.com';
-const standartUser = 'standard_user';
 const buyerFirstName = 'Fulano';
 const buyerLastName = 'Fulano';
 const buyerPostalCode = '89190-000';
 const purchaseValue = '71.26';
-
 
 describe('Login com usuário bloqueado', () => {
     it('Login com usuário bloqueado', () => {
