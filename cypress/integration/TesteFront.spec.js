@@ -70,7 +70,7 @@ describe('Compra com mais de um produto', () => {
         cy.get('.summary_total_label').should('have.text', `Total: $${purchaseValue}`)
         cy.get('[data-test="finish"]').click()
         cy.get('.title').should('have.text', 'Checkout: Complete!')
-        cy.get('.complete-header').should('have.text', 'THANK YOU FOR YOUR ORDER')
+        cy.get('.complete-header').should('have.text', 'Thank you for your order!')
     })
 
 })

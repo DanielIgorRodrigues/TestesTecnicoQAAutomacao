@@ -2,6 +2,8 @@ import { BODYS } from "../../support/bodys"
 import { DADOS } from "../../support/dados";
 import { URLS } from "../../support/urls"
 
+const post = require ('./1-novoUsuario.spec').NEWUSER
+
 export const EDITUSER = describe('Editar usuario cadastrado', () => {
 
     it('3 - Validar Edição de um usuário', () => {

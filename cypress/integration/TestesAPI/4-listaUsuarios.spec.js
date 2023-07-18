@@ -1,6 +1,8 @@
 import { DADOS } from "../../support/dados";
 import { URLS } from "../../support/urls"
 
+const post = require ('./1-novoUsuario.spec').NEWUSER
+
 export const LISTUSER = describe('Listar usuarios cadastrado', () => {
 
     it('4 - Validar listagem de usuários', () => {

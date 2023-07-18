@@ -1,6 +1,8 @@
 import { BODYS } from "../../support/bodys"
 import { URLS } from "../../support/urls"
 
+const post = require ('./1-novoUsuario.spec').NEWUSER
+
 export const SEARCHUSER = describe('Valida usuario cadastrado', () => {
 
     it('2 - Validar verificações realizadas no cadastro do usuário', () => {
