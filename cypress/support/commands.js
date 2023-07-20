@@ -24,6 +24,10 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import { DADOS } from "./dados";
+import { ELEMENTS } from "./elements";
+import { URLS } from "./urls";
+
 let LOCAL_STORAGE_MEMORY = {};
 
 Cypress.Commands.add("saveLocalStorage", () => {
@@ -35,5 +39,30 @@ Cypress.Commands.add("saveLocalStorage", () => {
 Cypress.Commands.add("restoreLocalStorage", () => {
   Object.keys(LOCAL_STORAGE_MEMORY).forEach(key => {
     localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
+  });
+});
+
+Cypress.Commands.add("login", () => {
+  cy.visit(URLS.front.baseUrl)
+  cy.get(ELEMENTS.login.username)
+    .type(DADOS.sauceDemo.standardUser.user)
+  cy.get(ELEMENTS.login.password).type(DADOS.sauceDemo.standardUser.password)
+  cy.get(ELEMENTS.login.loginButton).click()
+  cy.get(ELEMENTS.generalPageElements.pageName).should('have.text', ELEMENTS.messages.pageProducts)
+})
+
+Cypress.Commands.add("trataValores", (value) => {
+  return new Cypress.Promise((resolve) => {
+    const valorText = value.replace("$", "");
+    const valor = parseFloat(valorText);
+    resolve(valor);
+  });
+});
+
+Cypress.Commands.add("trataValoresTax", (value) => {
+  return new Cypress.Promise((resolve) => {
+    const valorText = value.replace("Tax: $", "");
+    const valor = parseFloat(valorText);
+    resolve(valor);
   });
 });

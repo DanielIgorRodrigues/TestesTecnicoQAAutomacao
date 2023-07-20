@@ -12,5 +12,23 @@ export const DADOS = {
         passAlterado: '1234567',
         admAlterado: 'false'
 
+    },
+
+    sauceDemo: {
+        blockUser: {
+            user: 'locked_out_user',
+            password: 'secret_sauce'
+        },
+
+        standardUser: {
+            user: 'standard_user',
+            password: 'secret_sauce'
+        },
+
+        buyerInfos: {
+            buyerFirstName: 'Manolo',
+            buyerLastName: 'Gomes',
+            buyerPostalCode: '89190-000'
+        }
     }
 }
