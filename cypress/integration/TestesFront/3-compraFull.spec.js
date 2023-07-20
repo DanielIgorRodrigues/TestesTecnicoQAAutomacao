@@ -3,13 +3,6 @@
 import { DADOS } from "../../support/dados";
 import { ELEMENTS } from "../../support/elements";
 
-
-const buyerFirstName = 'Fulano';
-const buyerLastName = 'Fulano';
-const buyerPostalCode = '89190-000';
-const purchaseValue = '71.26';
-
-
 describe('Validar valor de todos os produtos no carrinho', () => {
     let totalItemsPrices = 0; 
     let tax = 0;
@@ -31,91 +24,47 @@ describe('Validar valor de todos os produtos no carrinho', () => {
     })
 
     it('Incluir todos os itens no carrinho', () => {
-        cy.get(ELEMENTS.productsList.addCartProdct1).click()
-        cy.get(ELEMENTS.productsList.priceProduct1)
-            .invoke('text')
-            .then(($value) => {
-                let valorText = $value;
-                valorText = valorText.replace("$", "")
-                let valor = parseFloat(valorText)
+        const productsToAdd = [
+            ELEMENTS.productsList.addCartProdct1,
+            ELEMENTS.productsList.addCartProdct2,
+            ELEMENTS.productsList.addCartProdct3,
+            ELEMENTS.productsList.addCartProdct4,
+            ELEMENTS.productsList.addCartProdct5,
+            ELEMENTS.productsList.addCartProdct6,
+          ];
+      
+          cy.wrap(productsToAdd).each((product) => {
+            cy.get(product).click();
+            cy.get(ELEMENTS.productsList[`priceProduct${productsToAdd.indexOf(product) + 1}`])
+              .invoke('text')
+              .then((response) => {
+                cy.trataValores(response).then((valor) => {
                 totalItemsPrices += valor;
-            })
-        cy.get(ELEMENTS.productsList.addCartProdct2).click()
-        cy.get(ELEMENTS.productsList.priceProduct2)
-            .invoke('text')
-            .then(($value) => {
-                let valorText = $value;
-                valorText = valorText.replace("$", "")
-                let valor = parseFloat(valorText)
-                totalItemsPrices += valor;
-            })
-        cy.get(ELEMENTS.productsList.addCartProdct3).click()
-        cy.get(ELEMENTS.productsList.priceProduct3)
-            .invoke('text')
-            .then(($value) => {
-            let valorText = $value;
-            valorText = valorText.replace("$", "")
-            let valor = parseFloat(valorText)
-            totalItemsPrices += valor;
-        })
-        cy.get(ELEMENTS.productsList.addCartProdct4).click()
-        cy.get(ELEMENTS.productsList.priceProduct4)
-            .invoke('text')
-            .then(($value) => {
-                let valorText = $value;
-                valorText = valorText.replace("$", "")
-                let valor = parseFloat(valorText)
-                totalItemsPrices += valor;
-            })
-        cy.get(ELEMENTS.productsList.addCartProdct5).click()
-        cy.get(ELEMENTS.productsList.priceProduct5)
-            .invoke('text')
-            .then(($value) => {
-                let valorText = $value;
-                valorText = valorText.replace("$", "")
-                let valor = parseFloat(valorText)
-                totalItemsPrices += valor;
-            })
-        cy.get(ELEMENTS.productsList.addCartProdct6).click()
-        cy.get(ELEMENTS.productsList.priceProduct6)
-            .invoke('text')
-            .then(($value) => {
-                let valorText = $value;
-                valorText = valorText.replace("$", "")
-                let valor = parseFloat(valorText)
-                totalItemsPrices += valor;
-            })
-    })
+                });
+              });
+          });
+        });
 
     it('Fechar compra e validar valor', () => {
-        cy.get('.shopping_cart_link').click()
-        cy.get('[data-test="checkout"]').click()
-        cy.get('[data-test="firstName"]')
-            .type(buyerFirstName)
-            .should('have.value', buyerFirstName)
-        cy.get('[data-test="lastName"]')
-            .type(buyerLastName)
-            .should('have.value', buyerLastName)
-        cy.get('[data-test="postalCode"]')
-            .type(buyerPostalCode)
-            .should('have.value', buyerPostalCode)
-        cy.get('[data-test="continue"]').click()
-        cy.get('.title').should('have.text', 'Checkout: Overview')
-        cy.get('.summary_subtotal_label').should('have.text', `Item total: $${totalItemsPrices}`)
-        cy.get('.summary_tax_label')
+        cy.get(ELEMENTS.generalPageElements.shoppingCart).click()
+        cy.get(ELEMENTS.shoppingCart.checkout).click()
+        cy.get(ELEMENTS.checkoutBuyerInformations.checkoutFirstName)
+            .type(DADOS.sauceDemo.buyerInfos.buyerFirstName)
+        cy.get(ELEMENTS.checkoutBuyerInformations.checkoutLastName)
+            .type(DADOS.sauceDemo.buyerInfos.buyerLastName)
+        cy.get(ELEMENTS.checkoutBuyerInformations.checkoutPostalCode)
+            .type(DADOS.sauceDemo.buyerInfos.buyerPostalCode)
+        cy.get(ELEMENTS.checkoutBuyerInformations.continueButtom).click()
+        cy.get(ELEMENTS.checkoutOverview.subtotal).should('have.text', `Item total: $${totalItemsPrices}`)
+        cy.get(ELEMENTS.checkoutOverview.tax)
             .invoke('text')
-            .then(($value) => {
-                let valorText = $value;
-                valorText = valorText.replace("Tax: $", "")
-                let valor = parseFloat(valorText)
+            .then((response) => {
+                cy.trataValoresTax(response).then((valor) => {
                 tax = valor;
-            })
-            
-        cy.get('.summary_total_label').then((res) => {
-            console.log(totalItemsPrices)
-            console.log(tax)
+                });
+              });
+        cy.get(ELEMENTS.checkoutOverview.TotalValue).then(() => {
             totalPrice = (totalItemsPrices + tax)
-            console.log(totalPrice)
             cy.get('.summary_total_label').should('have.text', `Total: $${totalPrice}`)
         })
     })  

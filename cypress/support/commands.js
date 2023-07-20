@@ -50,3 +50,19 @@ Cypress.Commands.add("login", () => {
   cy.get(ELEMENTS.login.loginButton).click()
   cy.get(ELEMENTS.generalPageElements.pageName).should('have.text', ELEMENTS.messages.pageProducts)
 })
+
+Cypress.Commands.add("trataValores", (value) => {
+  return new Cypress.Promise((resolve) => {
+    const valorText = value.replace("$", "");
+    const valor = parseFloat(valorText);
+    resolve(valor);
+  });
+});
+
+Cypress.Commands.add("trataValoresTax", (value) => {
+  return new Cypress.Promise((resolve) => {
+    const valorText = value.replace("Tax: $", "");
+    const valor = parseFloat(valorText);
+    resolve(valor);
+  });
+});

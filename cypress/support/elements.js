@@ -52,6 +52,9 @@ export const ELEMENTS = {
 
     checkoutOverview: {
         checkoutFinish: '[data-test="finish"]',
+        subtotal: '.summary_subtotal_label',
+        tax: '.summary_tax_label',
+        TotalValue: '.summary_total_label'
     },
 
     checkoutComplete: {
